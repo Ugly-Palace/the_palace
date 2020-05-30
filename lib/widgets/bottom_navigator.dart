@@ -58,6 +58,7 @@ class _BottomNavigatorState extends State<BottomNavigator>
     return Scaffold(
       body: screens[pageIndex],
       bottomNavigationBar: FABBottomAppBar(
+        //Do the curved bottom nav
         centerItemText: 'A',
         color: Color(0xff3C3C3C),
         selectedColor: Color(0xffFF9F00),
