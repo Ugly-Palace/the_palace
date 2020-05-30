@@ -59,7 +59,7 @@ class _BottomNavigatorState extends State<BottomNavigator>
       body: screens[pageIndex],
       bottomNavigationBar: FABBottomAppBar(
         //Do the curved bottom nav
-        centerItemText: 'A',
+        centerItemText: '',
         color: Color(0xff3C3C3C),
         selectedColor: Color(0xffFF9F00),
         notchedShape: CircularNotchedRectangle(),
