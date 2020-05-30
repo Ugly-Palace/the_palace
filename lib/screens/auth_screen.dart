@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
-import 'file:///home/lectro/Documents/devSpace/mobile/flutter/the_palace/lib/widgets/login_tab.dart';
-import 'file:///home/lectro/Documents/devSpace/mobile/flutter/the_palace/lib/widgets/sign_up_tab.dart';
+import 'package:thepalace/widgets/login_tab.dart';
+import 'package:thepalace/widgets/sign_up_tab.dart';
 
 class AuthScreen extends StatelessWidget {
   static const String id = 'AuthScreen';

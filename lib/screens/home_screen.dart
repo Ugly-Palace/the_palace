@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
-import 'file:///home/lectro/Documents/devSpace/mobile/flutter/the_palace/lib/widgets/story_widget.dart';
+import 'package:thepalace/widgets/story_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String id = 'HomeScreen';

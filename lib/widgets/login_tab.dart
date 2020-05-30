@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'file:///home/lectro/Documents/devSpace/mobile/flutter/the_palace/lib/widgets/bottom_navigator.dart';
+import 'package:thepalace/widgets/bottom_navigator.dart';
 
 import 'buttons.dart';
 
