@@ -1,98 +1,58 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:thepalace/screens/home_screen.dart';
-import 'package:thepalace/screens/profile_screen.dart';
 
-import 'fab_bottom_bar.dart';
-
-class BottomNavigator extends StatefulWidget {
-  static const String id = 'BottomNavigator';
-
+class BottomNavBar extends StatefulWidget {
+  static String id = 'bottome';
   @override
-  _BottomNavigatorState createState() => new _BottomNavigatorState();
+  _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _BottomNavigatorState extends State<BottomNavigator>
-    with TickerProviderStateMixin {
-  PageController pageController;
-
-  @override
-  void initState() {
-    pageController = PageController();
-    super.initState();
-  }
-
-  List<Widget> screens = [
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
-    ProfileScreen(),
-  ];
-  int pageIndex = 0;
-
-  onPageChanged(int pageIndex) {
-    this.pageIndex = pageIndex;
-  }
-
-  String _lastSelected = 'TAB: 0';
-
-  void _selectedTab(int index) {
-    setState(() {
-      pageIndex = index;
-    });
-  }
-
-  void _selectedFab(int index) {
-    setState(() {
-      _lastSelected = 'FAB: $index';
-    });
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _page = 0;
+  GlobalKey _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[pageIndex],
-      bottomNavigationBar: FABBottomAppBar(
-        //Do the curved bottom nav
-        centerItemText: '',
-        color: Color(0xff3C3C3C),
-        selectedColor: Color(0xffFF9F00),
-        notchedShape: CircularNotchedRectangle(),
-        onTabSelected: _selectedTab,
-        items: [
-          FABBottomAppBarItem(iconData: Icons.home),
-          FABBottomAppBarItem(
-            iconData: Icons.group,
-          ),
-          FABBottomAppBarItem(
-            iconData: Icons.message,
-          ),
-          FABBottomAppBarItem(
-            iconData: Icons.person,
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xffFF9F00),
-        elevation: 0,
-        onPressed: () {},
-        child: Icon(
-          Icons.add,
-          color: Color(0xff3B3B3B),
+        bottomNavigationBar: CurvedNavigationBar(
+          key: _bottomNavigationKey,
+          index: 0,
+          height: 50.0,
+          items: <Widget>[
+            Icon(Icons.add, size: 30),
+            Icon(Icons.list, size: 30),
+            Icon(Icons.compare_arrows, size: 30),
+            Icon(Icons.call_split, size: 30),
+            Icon(Icons.perm_identity, size: 30),
+          ],
+          color: Colors.white,
+          buttonBackgroundColor: Colors.white,
+          backgroundColor: Colors.blueAccent,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 600),
+          onTap: (index) {
+            setState(() {
+              _page = index;
+            });
+          },
         ),
-      ),
-    );
+        body: Container(
+          color: Colors.blueAccent,
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Text(_page.toString(), textScaleFactor: 10.0),
+                RaisedButton(
+                  child: Text('Go To Page of index 1'),
+                  onPressed: () {
+                    final CurvedNavigationBarState navBarState =
+                        _bottomNavigationKey.currentState;
+                    navBarState.setPage(1);
+                  },
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }
-//PageView(
-//physics: NeverScrollableScrollPhysics(),
-//controller: pageController,
-//children: screens,
-//onPageChanged: onPageChanged,
-//),

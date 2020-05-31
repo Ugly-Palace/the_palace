@@ -51,7 +51,7 @@ class LoginTab extends StatelessWidget {
                   AuthButton(
                     title: 'LOGIN',
                     onTap: () {
-                      Navigator.of(context).pushNamed(BottomNavigator.id);
+                      Navigator.of(context).pushNamed(BottomNavBar.id);
                     },
                   ),
                 ],
