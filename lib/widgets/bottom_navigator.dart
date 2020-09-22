@@ -1,58 +1,54 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:thepalace/screens/group_chat.dart';
+import 'package:thepalace/screens/home_screen.dart';
+import 'package:thepalace/screens/notifications.dart';
+import 'package:thepalace/screens/profile_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
-  static String id = 'bottome';
+  static String id = 'bottom';
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
-  int _page = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
+int _page = 1;
+List<Widget> myPages = [
+  GroupChat(),
+  HomeScreen(),
+  Notifications(),
+  ProfileScreen(),
+];
+GlobalKey _bottomNavigationKey = GlobalKey();
 
+class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        body: Center(
+          child: myPages.elementAt(_page),
+        ),
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
-          index: 0,
-          height: 50.0,
-          items: <Widget>[
-            Icon(Icons.add, size: 30),
-            Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
-            Icon(Icons.call_split, size: 30),
-            Icon(Icons.perm_identity, size: 30),
-          ],
+          backgroundColor: Colors.grey.withOpacity(0.1),
           color: Colors.white,
-          buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.blueAccent,
-          animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 600),
+          buttonBackgroundColor: Color(0xffFF9200),
+          height: 55,
+          animationDuration: Duration(
+            milliseconds: 200,
+          ),
+          index: _page,
+          animationCurve: Curves.bounceInOut,
+          items: <Widget>[
+            Icon(Icons.group, size: 30, color: Colors.black45),
+            Icon(Icons.home, size: 30, color: Colors.black45),
+            Icon(Icons.favorite, size: 30, color: Colors.black45),
+            Icon(Icons.person, size: 30, color: Colors.black45),
+          ],
           onTap: (index) {
             setState(() {
               _page = index;
             });
           },
-        ),
-        body: Container(
-          color: Colors.blueAccent,
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                Text(_page.toString(), textScaleFactor: 10.0),
-                RaisedButton(
-                  child: Text('Go To Page of index 1'),
-                  onPressed: () {
-                    final CurvedNavigationBarState navBarState =
-                        _bottomNavigationKey.currentState;
-                    navBarState.setPage(1);
-                  },
-                )
-              ],
-            ),
-          ),
         ));
   }
 }

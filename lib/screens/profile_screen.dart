@@ -1,10 +1,29 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:thepalace/screens/followers_screen.dart';
+import 'package:thepalace/screens/following.dart';
+import 'package:thepalace/screens/home_screen.dart';
+import 'package:thepalace/widgets/drawer.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  static const String id = 'ProfileScreen';
+
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _openEndDrawer() {
+    _scaffoldKey.currentState.openEndDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -12,12 +31,19 @@ class ProfileScreen extends StatelessWidget {
         title: Text('Profile'),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _openEndDrawer();
+            },
             icon: Icon(
               Icons.menu,
             ),
           )
         ],
+      ),
+      endDrawer: Drawer(
+        child: SafeArea(
+          child: MenuDrawer(),
+        ),
       ),
       body: Container(
         child: ListView(
@@ -26,12 +52,9 @@ class ProfileScreen extends StatelessWidget {
             Column(
               children: <Widget>[
                 Center(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.orange,
-                    radius: 60,
-                    child: CircleAvatar(
-                      radius: 58,
-                    ),
+                  child: ProfilePic(
+                    width: 120,
+                    height: 120,
                   ),
                 ),
                 SizedBox(
@@ -82,66 +105,80 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      text: '102k ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Followers',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w300,
-                          ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(FollowersCrenen.id);
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        text: '102k ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                      ],
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Followers',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      text: '5M ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Following',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w300,
-                          ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(FollowingScreen.id);
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        text: '5M ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                      ],
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Following',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(15.0),
-              child: Center(
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    text:
-                        'Advertisement\n  Fashion designer Featuring Hausa motivational speaker Actor, Comedy ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'More details...',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.all(15.0),
+                child: Center(
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text:
+                          'Advertisement\n  Fashion designer Featuring Hausa motivational speaker Actor, Comedy ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
                       ),
-                    ],
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'More details...',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
